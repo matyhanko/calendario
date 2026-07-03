@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Leaderboard Container Card */
+        .leaderboard-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 480px;
+            overflow: hidden;
+        }
+
+        /* Header Section */
+        .leaderboard-header {
+            background: linear-gradient(135deg, #793e00 0%, #bca37c 100%);
+            padding: 30px 24px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .leaderboard-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .leaderboard-header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* Leaderboard List */
+        .leaderboard-list {
+            list-style: none;
+            padding: 12px 0;
+        }
+
+        /* Row Layout */
+        .leaderboard-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            border-bottom: 1px solid #f0f2f5;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .leaderboard-row:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-row:hover {
+            background-color: #f8fafc;
+            transform: scale(1.01);
+        }
+
+        /* Ranking Position Column */
+        .rank {
+            font-size: 16px;
+            font-weight: 700;
+            color: #64748b;
+            width: 45px; /* Slightly widened to fit "1st", "2nd", etc. */
+            text-align: left;
+        }
+
+        /* Profile Thumbnail Placeholder */
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffffff;
+            margin-right: 16px;
+            font-size: 14px;
+        }
+
+        /* User Details Column */
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .user-title {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* Points Column */
+        .score {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4f46e5;
+            text-align: right;
+        }
+
+        /* Top 3 Specialized Styling (Applied via JS now) */
+        .row-first .rank { color: #eab308; font-size: 20px; }
+        .row-first .avatar { background: #eab308 !important; }
+        
+        .row-second .rank { color: #94a3b8; font-size: 18px; }
+        .row-second .avatar { background: #94a3b8 !important; }
+        
+        .row-third .rank { color: #b45309; font-size: 17px; }
+        .row-third .avatar { background: #b45309 !important; }
+
+    </style>
+</head>
+<body>
+
+    <div class="leaderboard-card">
+        <div class="leaderboard-header">
+            <h1>Ranking</h1>
+        </div>
+
+        <!-- NOTICE: The rows are completely out of order in the HTML below. 
+             The JavaScript will automatically sort them on load. -->
+        <ul class="leaderboard-list" id="leaderboard">
+            
+            <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar" style="background-color: #3b82f6;"></div>
+                <div class="user-info">
+                    <div class="user-name">Daisy Mayorga</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+            <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Emily Figueroa</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+            <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar" style="background-color: #10b981;"></div>
+                <div class="user-info">
+                    <div class="user-name">Emma Figueroa</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+            <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Esly Reyes</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+            <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Fermin Carpio</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Gabriel Montenegro</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Jonathan Gonzales</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Kiara Alarcon</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Omar Nova</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Sebastian Figueroa</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+                        <li class="leaderboard-row">
+                <span class="rank"></span>
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">Stephanie Carpio</div>
+                </div>
+                <span class="score">0 pts</span>
+            </li>
+
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const listContainer = document.getElementById("leaderboard");
+            const rows = Array.from(listContainer.querySelectorAll(".leaderboard-row"));
+
+            // 1. Clean and sort the rows by numerical score
+            rows.sort((rowA, rowB) => {
+                const scoreAText = rowA.querySelector(".score").textContent;
+                const scoreBText = rowB.querySelector(".score").textContent;
+
+                // Strip out letters, commas, spaces, leaving only numbers
+                const scoreA = parseInt(scoreAText.replace(/[^0-9]/g, ""), 10);
+                const scoreB = parseInt(scoreBText.replace(/[^0-9]/g, ""), 10);
+
+                return scoreB - scoreA; // Sort descending (Highest score first)
+            });
+
+            // 2. Loop through the sorted array to update visual contents and re-inject elements
+            rows.forEach((row, index) => {
+                
+                // Clear any leftover rank classes from past states
+                row.classList.remove("row-first", "row-second", "row-third");
+
+                // Assign Rank Numbers and Podium Classes
+                const rankSpan = row.querySelector(".rank");
+                const position = index + 1;
+
+                if (position === 1) {
+                    rankSpan.textContent = "1st";
+                    row.classList.add("row-first");
+                } else if (position === 2) {
+                    rankSpan.textContent = "2nd";
+                    row.classList.add("row-second");
+                } else if (position === 3) {
+                    rankSpan.textContent = "3rd";
+                    row.classList.add("row-third");
+                } else {
+                    rankSpan.textContent = position;
+                }
+
+                // Handle Initials Generation
+                const nameText = row.querySelector(".user-name").textContent.trim();
+                const avatarDiv = row.querySelector(".avatar");
+                const initials = nameText
+                    .split(/\s+/)
+                    .map(word => word.charAt(0))
+                    .join("")
+                    .toUpperCase()
+                    .substring(0, 2);
+                
+                avatarDiv.textContent = initials;
+
+                // Re-append the row to the container in its corrected order
+                listContainer.appendChild(row);
+            });
+        });
+    </script>
+
+</body>
+</html>
