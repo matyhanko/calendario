@@ -1,0 +1,361 @@
+:root {
+    --cream: #fdf6ec;
+    --gold: #c9963a;
+    --gold-light: #e8c07a;
+    --brown: #5c3d1e;
+    --brown-light: #8b6340;
+    --olive: #6b7c4d;
+    --olive-light: #a3b57a;
+    --rust: #b85c38;
+    --blue: #3a6b8a;
+    --ink: #2a1f14;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    background-image: 
+      radial-gradient(ellipse at 10% 20%, rgba(201,150,58,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(107,124,77,0.08) 0%, transparent 50%);
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 40px 0 50px;
+    position: relative;
+  }
+
+  .header::before {
+    content: '✦';
+    display: block;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--brown);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .header .dates {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brown-light);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto 50px;
+    max-width: 300px;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light));
+  }
+  .divider::after {
+    background: linear-gradient(to left, transparent, var(--gold-light));
+  }
+
+  .divider span {
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  /* DAYS GRID */
+  .days {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .day-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(92,61,30,0.07), 0 1px 3px rgba(92,61,30,0.05);
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .day-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(92,61,30,0.12);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-card:nth-child(1) { animation-delay: 0.05s; }
+  .day-card:nth-child(2) { animation-delay: 0.1s; }
+  .day-card:nth-child(3) { animation-delay: 0.15s; }
+  .day-card:nth-child(4) { animation-delay: 0.2s; }
+  .day-card:nth-child(5) { animation-delay: 0.25s; }
+  .day-card:nth-child(6) { animation-delay: 0.3s; }
+  .day-card:nth-child(7) { animation-delay: 0.35s; }
+  .day-card:nth-child(8) { animation-delay: 0.4s; }
+
+  .day-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 10px;
+    color: white;
+    text-align: center;
+  }
+
+  .day-sidebar .weekday {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 4px;
+  }
+
+  .day-sidebar .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .day-sidebar .month {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+
+  .color-gold .day-sidebar { background: linear-gradient(160deg, #c9963a, #a07428); }
+  .color-olive .day-sidebar { background: linear-gradient(160deg, #6b7c4d, #4f5e35); }
+  .color-brown .day-sidebar { background: linear-gradient(160deg, #7a5230, #5c3d1e); }
+  .color-rust .day-sidebar { background: linear-gradient(160deg, #b85c38, #8f3f20); }
+  .color-blue .day-sidebar { background: linear-gradient(160deg, #3a6b8a, #245070); }
+  .color-sage .day-sidebar { background: linear-gradient(160deg, #7a9e7e, #5a7e5e); }
+
+  .day-content {
+    padding: 20px 24px;
+  }
+
+  .day-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    margin-bottom: 12px;
+  }
+
+  .activities {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .activity {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .activity .time {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--brown-light);
+    min-width: 52px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .activity .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .color-gold .activity .dot { background: var(--gold); }
+  .color-olive .activity .dot { background: var(--olive); }
+  .color-brown .activity .dot { background: var(--brown-light); }
+  .color-rust .activity .dot { background: var(--rust); }
+  .color-blue .activity .dot { background: var(--blue); }
+  .color-sage .activity .dot { background: #7a9e7e; }
+
+  .note {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--cream);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    font-style: italic;
+  }
+
+  /* SPECIAL CARDS */
+  .special-card {
+    background: linear-gradient(135deg, #3a6b8a 0%, #245070 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(58,107,138,0.25);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .special-card .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .special-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .special-card p {
+    font-size: 0.88rem;
+    opacity: 0.85;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(201,150,58,0.2);
+  }
+
+  .footer p {
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    letter-spacing: 1px;
+  }
+
+  .footer .cross {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  @media (max-width: 480px) {
+    .day-card { grid-template-columns: 70px 1fr; }
+    .day-sidebar .num { font-size: 1.8rem; }
+    .day-content { padding: 16px; }
+  }
+
+ .horizontal-list {
+  display: flex;            /* Aligns items side-by-side */
+  list-style: none;         /* Removes default bullet points */
+  padding: 0;               /* Removes default left padding */
+  margin: 0;                /* Removes default margins */
+  gap: 20px;                /* Adds spacing between the items */
+}
+
+.horizontal-list a {
+  text-decoration: none;
+  color:#8b6340
+}
+
+.horizontal-list li:not(:last-child) {
+  border-right: 1px solid #ccc; /* Creates the vertical line */
+  padding-right: 40px;          /* Spacing before the line */
+}
+
+.horizontal-list li {
+  padding-left: 15px;           /* Spacing after the line */
+}
+
+/* Main Navigation Styles */
+.main-nav {
+  display: flex;
+  list-style: none;
+  background-color: #8b6340;
+  padding: 0;
+  margin: 0;
+}
+
+.main-nav > li {
+  position: relative; /* Crucial: anchors the dropdown menu */
+}
+
+.main-nav a {
+  display: block;
+  color: white;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.main-nav a:hover {
+  background-color: var(--brown);
+}
+
+/* Dropdown Menu Hidden Styles */
+.dropdown-menu {
+  display: none;        /* Hides the menu by default */
+  position: absolute;   /* Floats the menu */
+  top: 100%;            /* Positions it right below the parent */
+  left: 0;
+  background-color: #fff;
+  min-width: 160px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;           /* Ensures it sits on top of other content */
+}
+
+.dropdown-menu a {
+  color: #333;          /* Dark text for the light dropdown background */
+  padding: 12px 16px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* The Magic Trigger: Show on Hover */
+.dropdown:hover .dropdown-menu {
+  display: block;       /* Shows the menu when parent is hovered */
+}
