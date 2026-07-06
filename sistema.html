@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Puntos — Viaje Misionero</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
+<style>
+  /* Estilos adicionales solo para esta página, respetando la paleta de styles.css */
+
+  .rubric-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(92,61,30,0.07), 0 1px 3px rgba(92,61,30,0.05);
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    animation: fadeUp 0.5s ease both;
+    margin-bottom: 24px;
+  }
+
+  .rubric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(92,61,30,0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rubric-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 10px;
+    color: white;
+    text-align: center;
+  }
+
+  .rubric-sidebar .icon {
+    font-size: 1.7rem;
+    margin-bottom: 6px;
+  }
+
+  .rubric-sidebar .label {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .rubric-content {
+    padding: 20px 24px;
+  }
+
+  .rubric-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--brown);
+    margin-bottom: 12px;
+  }
+
+  .point-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.45;
+    padding: 8px 0;
+    border-top: 1px solid rgba(92,61,30,0.08);
+  }
+
+  .point-row:first-of-type {
+    border-top: none;
+  }
+
+  .point-badge {
+    min-width: 40px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .color-gold .point-badge { background: rgba(201,150,58,0.15); color: var(--gold); }
+  .color-olive .point-badge { background: rgba(107,124,77,0.15); color: var(--olive); }
+  .color-brown .point-badge { background: rgba(139,99,64,0.15); color: var(--brown-light); }
+  .color-rust .point-badge { background: rgba(184,92,56,0.15); color: var(--rust); }
+  .color-blue .point-badge { background: rgba(58,107,138,0.15); color: var(--blue); }
+
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .bonus-card {
+    border-radius: 16px;
+    padding: 26px 28px;
+    color: white;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .bonus-card.positive {
+    background: linear-gradient(135deg, #6b7c4d 0%, #4f5e35 100%);
+    box-shadow: 0 4px 20px rgba(107,124,77,0.25);
+  }
+
+  .bonus-card.negative {
+    background: linear-gradient(135deg, #b85c38 0%, #8f3f20 100%);
+    box-shadow: 0 4px 20px rgba(184,92,56,0.25);
+  }
+
+  .bonus-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bonus-card p.sub {
+    font-size: 0.78rem;
+    opacity: 0.8;
+    margin-bottom: 14px;
+  }
+
+  .bonus-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .bonus-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.86rem;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 8px;
+  }
+
+  .bonus-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .bonus-list .amt {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .tip-note {
+    margin-top: 6px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(92,61,30,0.07);
+    font-size: 0.85rem;
+    color: var(--brown-light);
+    line-height: 1.6;
+  }
+
+  .tip-note strong {
+    color: var(--brown);
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold);
+    text-align: center;
+    margin: 8px 0 20px;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 560px) {
+    .rubric-card { grid-template-columns: 70px 1fr; }
+    .bonus-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <ul class="main-nav">
+  <li><a href="index.html">Inicio</a></li>
+
+  <!-- Parent Item with Dropdown -->
+  <li class="dropdown">
+    <a href="#">Días de la Semana ▾</a>
+    <ul class="dropdown-menu">
+      <li><a href="domingo.html">DOMINGO</a></li>
+      <li><a href="lunes.html">LUNES</a></li>
+      <li><a href="martes.html">MARTES</a></li>
+      <li><a href="miércoles.html">MIÉRCOLES</a></li>
+      <li><a href="jueves.html">JUEVES</a></li>
+      <li><a href="viernes.html">VIERNES</a></li>
+      <li><a href="sabado.html">SÁBADO</a></li>
+      <li><a href="domingo2.html">DOMINGO</a></li>
+    </ul>
+  </li>
+
+  <li><a href="ranking.html">Ranking</a></li>
+  <li><a href="sistema.html">Sistema de Puntos</a></li>
+</nav>
+<div class="page">
+
+  <header class="header">
+    <h1>Sistema de <em>Puntos</em></h1>
+    <p class="dates">Viaje Misionero · Julio 2026</p>
+  </header>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p class="section-label">Categorías diarias</p>
+
+  <div class="days">
+
+    <!-- ACTITUD -->
+    <div class="rubric-card color-gold">
+      <div class="rubric-sidebar" style="background: linear-gradient(160deg, #c9963a, #a07428);">
+        <span class="label">Actitud</span>
+      </div>
+      <div class="rubric-content">
+        <p class="rubric-title">Actitud del día</p>
+        <div class="point-row"><span class="point-badge">+5</span><span>Actitud positiva todo el día, anima a otros, sin quejas.</span></div>
+        <div class="point-row"><span class="point-badge">+3</span><span>Buena actitud en general, alguna queja menor.</span></div>
+        <div class="point-row"><span class="point-badge">-1</span><span>Actitud negativa, quejas frecuentes, afecta al grupo.</span></div>
+      </div>
+    </div>
+
+    <!-- SERVICIO -->
+    <div class="rubric-card color-olive">
+      <div class="rubric-sidebar" style="background: linear-gradient(160deg, #6b7c4d, #4f5e35);">
+        <span class="label">Servicio</span>
+      </div>
+      <div class="rubric-content">
+        <p class="rubric-title">Servicio y trabajo</p>
+        <div class="point-row"><span class="point-badge">+5</span><span>Se ofrece voluntariamente, trabaja con excelencia y esfuerzo.</span></div>
+        <div class="point-row"><span class="point-badge">+3</span><span>Cumple lo asignado sin necesidad de que lo empujen.</span></div>
+        <div class="point-row"><span class="point-badge">0</span><span>Hay que recordarle varias veces, hace lo mínimo.</span></div>
+      </div>
+    </div>
+
+    <!-- DILIGENCIA -->
+    <div class="rubric-card color-brown">
+      <div class="rubric-sidebar" style="background: linear-gradient(160deg, #7a5230, #5c3d1e);">
+        <span class="label">Diligencia</span>
+      </div>
+      <div class="rubric-content">
+        <p class="rubric-title">Diligencia y puntualidad <span style="font-size:0.7rem; color: var(--brown-light); font-style: italic;">(por evento)</span></p>
+        <div class="point-row"><span class="point-badge">+2</span><span>Llega a tiempo, listo con lo que necesita (Biblia, uniforme, materiales).</span></div>
+        <div class="point-row"><span class="point-badge">+1</span><span>Llega tarde pero sin causar problemas.</span></div>
+        <div class="point-row"><span class="point-badge">0</span><span>Llega tarde y hay que buscarlo o esperarlo.</span></div>
+      </div>
+    </div>
+
+    <!-- TRABAJO EN EQUIPO -->
+    <div class="rubric-card color-rust">
+      <div class="rubric-sidebar" style="background: linear-gradient(160deg, #b85c38, #8f3f20);">
+        <span class="label">Equipo</span>
+      </div>
+      <div class="rubric-content">
+        <p class="rubric-title">Trabajo en equipo <span style="font-size:0.7rem; color: var(--brown-light); font-style: italic;">(por actividad)</span></p>
+        <div class="point-row"><span class="point-badge">+3</span><span>Incluye a otros, resuelve conflictos con madurez.</span></div>
+        <div class="point-row"><span class="point-badge">+2</span><span>Coopera bien con el equipo.</span></div>
+        <div class="point-row"><span class="point-badge">0</span><span>Se aísla o genera fricción.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p class="section-label">Bonos y penalizaciones</p>
+
+  <div class="bonus-grid">
+    <div class="bonus-card positive">
+      <h3>Puntos extra</h3>
+      <p class="sub">Suman al total en cualquier momento del día</p>
+      <ul class="bonus-list">
+        <li><span>Memorizar el versículo del día</span><span class="amt">+3</span></li>
+        <li><span>Compartir su fe o testimonio con alguien</span><span class="amt">+5</span></li>
+        <li><span>Ayudar a alguien sin que se lo pidan</span><span class="amt">+3</span></li>
+        <li><span>Poner una buena actitud en los ensayos</span><span class="amt">+5</span></li>
+      </ul>
+    </div>
+
+    <div class="bonus-card negative">
+      <h3>Penalizaciones</h3>
+      <p class="sub">Se restan del total acumulado</p>
+      <ul class="bonus-list">
+        <li><span>Usar el celular fuera de horario permitido</span><span class="amt">−2</span></li>
+        <li><span>Faltar el respeto a un líder o compañero</span><span class="amt">−5</span></li>
+        <li><span>Romper una regla de seguridad</span><span class="amt">−5</span></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="divider" style="margin-top:50px;"><span>✦</span></div>
+
+  <footer class="footer">
+    <span class="cross">✞</span>
+    <p>Viaje Misionero · Julio 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

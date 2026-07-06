@@ -359,3 +359,10 @@
 .dropdown:hover .dropdown-menu {
   display: block;       /* Shows the menu when parent is hovered */
 }
+
+.verse {
+  display:block;
+  margin-top: -300px;
+  padding-left: 50px;
+
+}
